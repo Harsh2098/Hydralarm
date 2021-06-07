@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hydralarm</string>
+    <string name="short_minutes">mins</string>
+</resources>
