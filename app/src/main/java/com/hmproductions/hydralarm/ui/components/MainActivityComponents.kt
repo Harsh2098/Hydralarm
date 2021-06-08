@@ -1,6 +1,5 @@
 package com.hmproductions.hydralarm.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -39,7 +38,6 @@ fun MainScreen(viewModel: HydralarmViewModel = viewModel()) {
 fun IntervalOptions(
     intervals: List<Interval>, onIntervalClick: (Int) -> Unit
 ) {
-    Log.v(":::", "composable$intervals")
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,7 +53,7 @@ fun IntervalOptions(
 @Composable
 fun IntervalCard(interval: Interval, onIntervalClick: (Int) -> Unit) {
     Card(
-        backgroundColor = if (interval.selected) Color.Yellow else Color.White,
+        backgroundColor = if (interval.selected) Color.Green else Color.White,
         border = BorderStroke(1.dp, HydralarmTheme.colors.cardBorderColor),
         modifier = Modifier.clip(MaterialTheme.shapes.medium),
         elevation = 8.dp

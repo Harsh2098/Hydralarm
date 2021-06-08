@@ -9,16 +9,15 @@ class HydralarmViewModel : ViewModel() {
     private val _intervals = MutableLiveData<List<Interval>>(listOf())
     val intervals: LiveData<List<Interval>> = _intervals
 
-    private val defaultIntervals =
-        listOf(Interval(15, false), Interval(30, false), Interval(60, false))
-
     init {
-        _intervals.value = defaultIntervals
+        _intervals.value = listOf(Interval(15, false), Interval(30, false), Interval(60, false))
     }
 
     fun onIntervalClick(minute: Int) {
-        val updatedIntervals = defaultIntervals
-        updatedIntervals.forEach { it.selected = it.minute == minute }
+        val updatedIntervals = mutableListOf<Interval>()
+        intervals.value?.forEach {
+            updatedIntervals.add(Interval(it.minute, it.minute == minute))
+        }
         _intervals.value = updatedIntervals
     }
 }
