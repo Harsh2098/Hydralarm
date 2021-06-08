@@ -26,10 +26,13 @@ fun MainScreen(viewModel: HydralarmViewModel = viewModel()) {
 
     HydralarmTheme {
         val intervals: List<Interval> by viewModel.intervals.observeAsState(listOf())
+        val glassCount: Int by viewModel.glassCount.observeAsState(0)
 
-        Column {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(modifier = Modifier.height(36.dp))
             IntervalOptions(intervals, viewModel::onIntervalClick)
+            Spacer(modifier = Modifier.height(36.dp))
+            Text(text = "$glassCount", style = MaterialTheme.typography.h1)
         }
     }
 }
@@ -60,7 +63,7 @@ fun IntervalCard(interval: Interval, onIntervalClick: (Int) -> Unit) {
     ) {
         Column(
             modifier = Modifier
-                .clickable { onIntervalClick(interval.minute) }
+                .clickable { if (!interval.selected) onIntervalClick(interval.minute) }
                 .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

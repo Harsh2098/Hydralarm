@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Hydralarm</string>
     <string name="short_minutes">mins</string>
+    <string name="default_channel_name">General</string>
+    <string name="default_channel_description">Notifications for water reminders</string>
+    <string name="gluped">Gluped</string>
 </resources>

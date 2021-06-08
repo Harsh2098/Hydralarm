@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        model = ViewModelProvider(this, HydralarmViewModelFactory(dataStore)).get(HydralarmViewModel::class.java)
+        model = ViewModelProvider(this, HydralarmViewModelFactory(dataStore, application)).get(HydralarmViewModel::class.java)
 
         setContent {
             MainScreen()

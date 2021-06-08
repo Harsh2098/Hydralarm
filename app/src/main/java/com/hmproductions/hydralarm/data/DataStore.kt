@@ -8,6 +8,7 @@ object PreferencesKeys {
     const val HYDRALARM_PREFERENCES_NAME = "hydralarm_preferences"
 
     val INTERVAL_MINUTE_KEY = intPreferencesKey("interval-minute-key")
+    val GLASS_COUNT_KEY = intPreferencesKey("glass-count-key")
 }
 
 val Context.dataStore by preferencesDataStore(
