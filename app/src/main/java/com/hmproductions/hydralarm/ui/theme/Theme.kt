@@ -6,40 +6,49 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val CustomDarkColorPalette = HydralarmColors(
     neutralFontColor = Color.White,
-    cardBorderColor = Color.Gray
+    cardBorderColor = Color.White,
+    cardBackgroundColor = DarkCardBackgroundColor
 )
 
 private val CustomLightColorPalette = HydralarmColors(
     neutralFontColor = Color.Black,
-    cardBorderColor = Color.DarkGray
+    cardBorderColor = Color.DarkGray,
+    cardBackgroundColor = LightCardBackgroundColor
 )
 
 private val SystemDarkColorPalette = darkColors(
-    primary = Purple500,
+    primary = DarkToolBar,
+    primaryVariant = DarkStatusBar,
     surface = Color.Gray
 )
 
 private val SystemLightColorPalette = lightColors(
-    primary = Purple500,
+    primary = LightToolBar,
+    primaryVariant = LightStatusBar,
     surface = Color.White
 )
 
 @Stable
 class HydralarmColors(
     neutralFontColor: Color,
-    cardBorderColor: Color
+    cardBorderColor: Color,
+    cardBackgroundColor: Color,
 ) {
     var cardBorderColor by mutableStateOf(cardBorderColor)
         private set
     var neutralFontColor by mutableStateOf(neutralFontColor)
         private set
+    var cardBackgroundColor by mutableStateOf(cardBackgroundColor)
+        private set
 
     fun update(other: HydralarmColors) {
         cardBorderColor = other.cardBorderColor
         neutralFontColor = other.neutralFontColor
+        cardBackgroundColor = other.cardBackgroundColor
     }
 }
 
@@ -55,6 +64,14 @@ fun HydralarmTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
         SystemDarkColorPalette
     } else {
         SystemLightColorPalette
+    }
+
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = systemColors.primaryVariant
+        )
     }
 
     ProvideHydralarmColors(colors = customColors) {

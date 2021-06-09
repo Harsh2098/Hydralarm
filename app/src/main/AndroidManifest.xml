@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".reminder.IncrementCountService" />
+        <service
+            android:name=".reminder.IncrementCountService"
+            android:exported="false" />
 
     </application>
 

@@ -61,6 +61,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha06'
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
+    // Accompanist
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.10.0"
+
     // Datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
 

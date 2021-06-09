@@ -1,10 +1,12 @@
 package com.hmproductions.hydralarm.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +22,8 @@ import com.hmproductions.hydralarm.R
 import com.hmproductions.hydralarm.data.HydralarmViewModel
 import com.hmproductions.hydralarm.data.Interval
 import com.hmproductions.hydralarm.ui.theme.HydralarmTheme
+import com.hmproductions.hydralarm.ui.theme.SelectedCardBackgroundColor
+import com.hmproductions.hydralarm.ui.theme.SelectedCardBorderColor
 
 @Composable
 fun MainScreen(viewModel: HydralarmViewModel = viewModel()) {
@@ -28,12 +32,21 @@ fun MainScreen(viewModel: HydralarmViewModel = viewModel()) {
         val intervals: List<Interval> by viewModel.intervals.observeAsState(listOf())
         val glassCount: Int by viewModel.glassCount.observeAsState(0)
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Spacer(modifier = Modifier.height(36.dp))
-            IntervalOptions(intervals, viewModel::onIntervalClick)
-            Spacer(modifier = Modifier.height(36.dp))
-            Text(text = "$glassCount", style = MaterialTheme.typography.h1)
+        Scaffold(
+            topBar = { HydralarmTopBar() }
+        ) {
+            MainBody(intervals, glassCount, viewModel::onIntervalClick)
         }
+    }
+}
+
+@Composable
+fun MainBody(intervals: List<Interval>, glassCount: Int, onIntervalClick: (Int) -> Unit) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Spacer(modifier = Modifier.height(36.dp))
+        IntervalOptions(intervals, onIntervalClick)
+        Spacer(modifier = Modifier.height(36.dp))
+        Text(text = "$glassCount", style = MaterialTheme.typography.h1, color = HydralarmTheme.colors.neutralFontColor)
     }
 }
 
@@ -56,10 +69,10 @@ fun IntervalOptions(
 @Composable
 fun IntervalCard(interval: Interval, onIntervalClick: (Int) -> Unit) {
     Card(
-        backgroundColor = if (interval.selected) Color.Green else Color.White,
-        border = BorderStroke(1.dp, HydralarmTheme.colors.cardBorderColor),
+        backgroundColor = if (interval.selected) SelectedCardBackgroundColor else HydralarmTheme.colors.cardBackgroundColor,
+        border = BorderStroke(1.dp, if (interval.selected) SelectedCardBorderColor else HydralarmTheme.colors.cardBorderColor),
         modifier = Modifier.clip(MaterialTheme.shapes.medium),
-        elevation = 8.dp
+        elevation = 0.dp
     ) {
         Column(
             modifier = Modifier
@@ -68,13 +81,13 @@ fun IntervalCard(interval: Interval, onIntervalClick: (Int) -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = interval.minute.toString(), style = MaterialTheme.typography.body1,
+                text = interval.minute.toString(), style = MaterialTheme.typography.h6,
                 color = HydralarmTheme.colors.neutralFontColor
             )
             Text(
                 text = stringResource(id = R.string.short_minutes),
-                style = MaterialTheme.typography.caption,
-                color = Color.Gray
+                style = MaterialTheme.typography.body1,
+                color = HydralarmTheme.colors.neutralFontColor
             )
         }
     }
